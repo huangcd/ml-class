@@ -15,15 +15,8 @@ function p = predict(theta, X)
 %               You should set p to a vector of 0's and 1's
 %
 m = X*theta;
-p = zeros(length(m), 1);
-for i=1:length(m)
-  if m(i) >= 0.5
-    p(i) = 1;
-  else
-    p(i) = 0;
-end
+p = arrayfun(@round, sigmoid(X*theta));
 
 % =========================================================================
-
 
 end
