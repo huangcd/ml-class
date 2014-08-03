@@ -6,11 +6,6 @@ function [J, grad] = lrCostFunction(theta, X, y, lambda)
 %   gradient of the cost w.r.t. to the parameters. 
 
 % Initialize some useful values
-m = length(y); % number of training examples
-
-% You need to return the following variables correctly 
-J = 0;
-grad = zeros(size(theta));
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta.
@@ -35,18 +30,13 @@ grad = zeros(size(theta));
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
+m = length(y); % number of training examples
 
-
-
-
-
-
-
-
-
-
-% =============================================================
-
-grad = grad(:);
+% You need to return the following variables correctly 
+theta_eye = theta;
+theta_eye(1) = 0;
+g = sigmoid(X*theta);
+J = -1/m*(sum(y.*log(g) .+ (1.-y).*log(1.-g))) + lambda / 2 / m * sum(theta_eye .^ 2);
+grad = (1/m).*(X'*(g .- y)) .+ (lambda / m) .* theta_eye;
 
 end
